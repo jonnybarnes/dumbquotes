@@ -11,7 +11,7 @@ Edit your `composer.json` requires section to inlcude `jonnybarnes/dumbquotes`:
         }
     }
 
-then in you PHP:
+then in your PHP:
 
     <?php
     use \Jonnybarnes\Dumbquotes\DumbquotesParser;
