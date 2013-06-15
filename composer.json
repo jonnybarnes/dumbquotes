@@ -1,6 +1,9 @@
 {
     "name": "jonnybarnes/dumbquotes",
     "description": "Pugre all the dumb quotes!",
+    "keywords": ["typography", "dumbquotes", "smartquotes"],
+    "homepage": "https://github.com/jonnybarnes/dumbquotes",
+    "license": "CC0",
     "authors": [
         {
             "name": "Jonny Barnes",
