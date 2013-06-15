@@ -7,7 +7,7 @@ Edit your `composer.json` requires section to inlcude `jonnybarnes/dumbquotes`:
 
     {
         "require": {
-            "jonnybarnes/dumbquotes": "1.0.*"
+            "jonnybarnes/dumbquotes": "dev-master"
         }
     }
 
