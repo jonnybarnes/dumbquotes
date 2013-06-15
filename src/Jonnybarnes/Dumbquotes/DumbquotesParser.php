@@ -27,7 +27,11 @@ class DumbquotesParser {
 		$apostrophes = str_replace('\'s', '’s', $text);
 		$sapostrophe = str_replace('s\' ', 's’ ', $apostrophes);
 
-		return $sapostrophe;
+		$apostrophePattern = "/(\w+)'(\w+)/";
+		$apotropheReplacement = '$1’$2';
+		$apostrophe = preg_replace($apostrophePattern, $apotropheReplacement, $sapostrophe);
+		
+		return $apostrophe;
 	}
 
 	/*
@@ -37,7 +41,7 @@ class DumbquotesParser {
 	 */
 	public function singleQuotes($text)
 	{
-		$singlequotesPattern = "/'\b(.*)\b'/";
+		$singlequotesPattern = "/'(.*)'/";
 		$singlequotesReplacement = "‘$1’";
 
 		$singlequotes = preg_replace($singlequotesPattern, $singlequotesReplacement, $text);
@@ -52,7 +56,7 @@ class DumbquotesParser {
 	 */
 	public function doubleQuotes($text)
 	{
-		$doublequotesPattern = '/"\b(.*)\b"/';
+		$doublequotesPattern = '/"(.*)"/';
 		$doublequotesReplacment = '“$1”';
 
 		$doublequotes = preg_replace($doublequotesPattern, $doublequotesReplacment, $text);
