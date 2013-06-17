@@ -15,6 +15,14 @@ class DumbquotesParserTest extends PHPUnit_Framework_TestCase {
 		$this->parser = null;
 	}
 
+	public function testTransform()
+	{
+		$actual = $this->parser->transform('This "cool" feature doesn\'t happen in <code>"quoted" code</code>, cool...');
+		$expected = 'This “cool” feature doesn’t happen in <code>"quoted" code</code>, cool…';
+
+		$this->assertEquals($actual, $expected);
+	}
+
 	public function testSmartQuotes()
 	{
 		$actual = $this->parser->smartQuotes('\'Hal said, "Good morning, Dave,"\' recalled Frank');
@@ -43,6 +51,14 @@ class DumbquotesParserTest extends PHPUnit_Framework_TestCase {
 	{
 		$actual = $this->parser->doubleQuotes('Jonny said "Hello there" to his friend');
 		$expected = 'Jonny said “Hello there” to his friend';
+
+		$this->assertEquals($actual, $expected);
+	}
+
+	public function testEllipsis()
+	{
+		$actual = $this->parser->ellipsis('An interr...upted word in some text ... Interesting');
+		$expected = 'An interr...upted word in some text … Interesting';
 
 		$this->assertEquals($actual, $expected);
 	}
