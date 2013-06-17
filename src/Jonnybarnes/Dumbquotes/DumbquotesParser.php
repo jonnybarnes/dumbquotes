@@ -2,7 +2,8 @@
 
 class DumbquotesParser {
 	/**
-	 * This tranforms the text unless its in a code block
+	 * This acts as a proxy for allMethods(), ensures doesn't
+	 * happen in code blocks;
 	 * taken from http://stackoverflow.com/a/1472866/12854
 	 *
 	 * @returns string
@@ -12,10 +13,23 @@ class DumbquotesParser {
 		$pattern = "#\\<code>.*?\\</code>#i";
 
 		if(preg_match_all($pattern, $content, $codeBlocks)) {
-			return $this->arrayJoin($codeBlocks[0], array_map('self::smartQuotes', preg_split($pattern, $content)));
+			return $this->arrayJoin($codeBlocks[0], array_map('self::allMethods', preg_split($pattern, $content)));
 		}
 
-		return $this->smartQuotes($content);
+		return $this->allMethods($content);
+	}
+
+	/*
+	 * This applies all the methods, used by transform()
+	 *
+	 * @returns string
+	 */
+	public function allMethods($text)
+	{
+		$quotes = $this->smartQuotes($text);
+		$ellipsis = $this->ellipsis($quotes);
+
+		return $ellipsis;
 	}
 
 	/*
@@ -80,6 +94,30 @@ class DumbquotesParser {
 
 		return $doublequotes;
 	}
+
+	/**
+	 * This replaces three periods with ellipses
+	 *
+	 * @returns string
+	 */
+	public function ellipsis($text)
+	{
+		// first we deal with ellipses in sentences
+		$ellipsisPattern = '/(\s+)(\.{3})(\s*)/';
+		$ellipsisReplacement = ' … ';
+
+		$ellipsis = preg_replace($ellipsisPattern, $ellipsisReplacement, $text);
+
+		//now we deal with ellipses at the end
+		$ellipsisPatternEnd = '/(\.{3})$/';
+		$ellipsisReplacementEnd = '…';
+
+		$ellipsisEnd = preg_replace($ellipsisPatternEnd, $ellipsisReplacementEnd, $ellipsis);
+
+		return $ellipsisEnd;
+	}
+
+
 
 	/*
 	 * This function pieces together transformed text with untransformed code text
