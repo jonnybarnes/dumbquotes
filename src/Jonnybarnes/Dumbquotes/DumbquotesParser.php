@@ -10,7 +10,7 @@ class DumbquotesParser {
 	 */
 	public function transform($content)
 	{
-		$pattern = "#\\<code>.*?\\</code>#i";
+		$pattern = "#\\<code(.*)>.*?\\</code>#i";
 
 		if(preg_match_all($pattern, $content, $codeBlocks)) {
 			return $this->arrayJoin($codeBlocks[0], array_map('self::allMethods', preg_split($pattern, $content)));
