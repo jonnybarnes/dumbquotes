@@ -20,9 +20,9 @@ then in your PHP:
 
     $parser = new DumbquotesPraser();
 
-Then we can replace our dumbquotes with the `smartQuotes()` method like so:
+Then we can replace our dumb typography with the `transform()` method like so:
 
     $original = 'Let\'s try this!';
-    $transformed = $parser->smartQuotes($original);
+    $transformed = $parser->tranform($original);
 
 As simple as that.
