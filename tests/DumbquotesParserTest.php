@@ -55,6 +55,14 @@ class DumbquotesParserTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals($actual, $expected);
 	}
 
+	public function testStrayQuotes()
+	{
+		$actual = $this->parser->strayQuotes("'Twas the night before Christmas");
+		$expected = "’Twas the night before Christmas";
+
+		$this->assertEquals($actual, $expected);
+	}
+
 	public function testEllipsis()
 	{
 		$actual = $this->parser->ellipsis('An interr...upted word in some text ... Interesting');
