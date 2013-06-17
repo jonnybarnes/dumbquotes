@@ -62,4 +62,12 @@ class DumbquotesParserTest extends PHPUnit_Framework_TestCase {
 
 		$this->assertEquals($actual, $expected);
 	}
+
+	public function testDashes()
+	{
+		$actual = $this->parser->dashes('June--July, I like sentences---with seperate thoughts---that are not overly long');
+		$expected = 'June–July, I like sentences—with seperate thoughts—that are not overly long';
+
+		$this->assertEquals($actual, $expected);
+	}
 }
