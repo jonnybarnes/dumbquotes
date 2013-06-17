@@ -46,7 +46,10 @@ class DumbquotesParser {
 
 		$doublequotes = $this->doubleQuotes($singlequotes);
 
-		return $doublequotes;
+		//Now we straight swap left over single quotes
+		$strayquotes = $this->strayQuotes($doublequotes);
+
+		return $strayquotes;
 	}
 
 	/*
@@ -94,6 +97,18 @@ class DumbquotesParser {
 		$doublequotes = preg_replace($doublequotesPattern, $doublequotesReplacment, $text);
 
 		return $doublequotes;
+	}
+
+	/*
+	 * This looks for any stray quotes
+	 *
+	 * @returns string
+	 */
+	public function strayQuotes($text)
+	{
+		$stray = str_replace("'", "’", $text);
+
+		return $stray;
 	}
 
 	/**
