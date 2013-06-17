@@ -28,8 +28,9 @@ class DumbquotesParser {
 	{
 		$quotes = $this->smartQuotes($text);
 		$ellipsis = $this->ellipsis($quotes);
+		$dashes = $this->dashes($ellipsis);
 
-		return $ellipsis;
+		return $dashes;
 	}
 
 	/*
@@ -115,6 +116,19 @@ class DumbquotesParser {
 		$ellipsisEnd = preg_replace($ellipsisPatternEnd, $ellipsisReplacementEnd, $ellipsis);
 
 		return $ellipsisEnd;
+	}
+
+	/*
+	 * This swaps dashes for em and en dashes
+	 *
+	 * @returns string
+	 */
+	public function dashes($text)
+	{
+		$emdash = str_replace('---', '—', $text);
+		$endash = str_replace('--', '–', $emdash);
+
+		return $endash;
 	}
 
 
