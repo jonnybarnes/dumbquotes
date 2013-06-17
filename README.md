@@ -1,5 +1,7 @@
 #Dumbquotes
 
+[![Build Status](https://travis-ci.org/jonnybarnes/dumbquotes.png)](https://travis-ci.org/jonnybarnes/dumbquotes)
+
 This looks for dumbquotes and replaces them with their smart quotes equivalent.
 
 To use first we install it, then we need to declare the namepsace then instantiate the parser.
