@@ -1,33 +1,16 @@
 <?php namespace Jonnybarnes\Dumbquotes;
 
 class DumbquotesParser {
-	/**
-	 * This acts as a proxy for allMethods(), ensures doesn't
-	 * happen in code blocks;
-	 * taken from http://stackoverflow.com/a/1472866/12854
-	 *
-	 * @returns string
-	 */
-	public function transform($content)
-	{
-		$pattern = "#\\<code(.*)>.*?\\</code>#i";
-
-		if(preg_match_all($pattern, $content, $codeBlocks)) {
-			return $this->arrayJoin($codeBlocks[0], array_map('self::allMethods', preg_split($pattern, $content)));
-		}
-
-		return $this->allMethods($content);
-	}
-
 	/*
-	 * This applies all the methods, used by transform()
+	 * This applies all the methods
 	 *
 	 * @returns string
 	 */
-	public function allMethods($text)
+	public function transform($text)
 	{
 		$quotes = $this->smartQuotes($text);
-		$ellipsis = $this->ellipsis($quotes);
+		$unQuote = $this->unQuote($quotes);
+		$ellipsis = $this->ellipsis($unQuote);
 		$dashes = $this->dashes($ellipsis);
 
 		return $dashes;
@@ -111,6 +94,18 @@ class DumbquotesParser {
 		return $stray;
 	}
 
+	/*
+	 * This looks for escaped quotes and converts them back
+	 *
+	 * @returns string
+	 */
+	public function unQuote($text)
+	{
+		$unquoted = str_replace(array('\\‘', '\\’', '\\“', '\\”'), array('\'', '\'', '"', '"'), $text);
+
+		return $unquoted;
+	}
+
 	/**
 	 * This replaces three periods with ellipses
 	 *
@@ -144,34 +139,5 @@ class DumbquotesParser {
 		$endash = str_replace('--', '–', $emdash);
 
 		return $endash;
-	}
-
-
-
-	/*
-	 * This function pieces together transformed text with untransformed code text
-	 * taken from http://stackoverflow.com/a/1472866/12854
-	 *
-	 * @returns string
-	 */
-	public function arrayJoin(array $glue, array $pieces)
-	{
-		$glue = array_values($glue);
-		$pieces = array_values($pieces);
-		$piecesSize = count($pieces);
-
-		if(count($glue) + 1 != $piecesSize) {
-			return false;
-		}
-
-		$joined = array();
-		for($i = 0; $i < $piecesSize; $i++) {
-			$joined[] = $pieces[$i];
-			if(isset($glue[$i])) {
-				$joined[] = $glue[$i];
-			}
-		}
-
-		return implode('', $joined);
 	}
 }
