@@ -17,8 +17,8 @@ class DumbquotesParserTest extends PHPUnit_Framework_TestCase {
 
 	public function testTransform()
 	{
-		$actual = $this->parser->transform('This "cool" feature doesn\'t happen in <code>"quoted" code</code>, cool...');
-		$expected = 'This “cool” feature doesn’t happen in <code>"quoted" code</code>, cool…';
+		$actual = $this->parser->transform('This "cool" feature should allow escapes. \"Escaped quotes\", cool...');
+		$expected = 'This “cool” feature should allow escapes. "Escaped quotes", cool…';
 
 		$this->assertEquals($actual, $expected);
 	}
